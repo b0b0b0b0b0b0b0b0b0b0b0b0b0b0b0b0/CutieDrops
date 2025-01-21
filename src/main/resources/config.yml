@@ -1,6 +1,15 @@
 settings:
-  enable_messages: true   # Включает/выключает сообщения для игрока (например, о превращении мобов).
-  check_updates: true     # Проверять обновления плагина.
+  enable_already_baby_message: true  # Включает сообщение "Моб уже малыш".
+  enable_transformed_message: true   # Включает сообщение "Моб превращён в малыша".
+  check_updates: true                # Проверять обновления плагина.
+
+sounds:
+  already_baby: ENTITY_VILLAGER_NO   # Звук при попытке превратить малыша.
+  transformed: ENTITY_PLAYER_LEVELUP # Звук при успешном превращении моба в малыша.
+
+particles:
+  transformed: CRIT                 # Партиклы при успешном превращении моба.
+
 drops:
   CHICKEN: FEATHER       # Курица — выбрасывает перо.
   PIG: PORKCHOP          # Свинья — выбрасывает свинину.

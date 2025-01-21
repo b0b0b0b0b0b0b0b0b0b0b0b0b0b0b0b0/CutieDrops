@@ -19,8 +19,6 @@ public class Reload implements CommandExecutor {
             sender.sendMessage(plugin.getMessage("no_permission"));
             return true;
         }
-
-        // Перезагрузка конфига и сообщений
         plugin.reloadConfig();
         plugin.getConfigManager().reloadConfig();
         plugin.reloadMessages();

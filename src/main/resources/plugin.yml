@@ -1,0 +1,11 @@
+name: CutieDrops
+version: '1.1'
+main: com.bobobo.plugins.cutieDrops.CutieDrops
+api-version: '1.18'
+authors: [ b0b0b0 ]
+website: https://black-minecraft.com/
+commands:
+  cutiedrops:
+    description: Перезагрузка конфига CutieDrops.
+    usage: /<command> reload
+    permission: cutiedrops.reload

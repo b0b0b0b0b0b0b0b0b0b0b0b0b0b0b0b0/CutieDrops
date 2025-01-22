@@ -1,5 +1,5 @@
 name: CutieDrops
-version: '1.1'
+version: '${project.version}'
 main: com.bobobo.plugins.cutieDrops.CutieDrops
 api-version: '1.18'
 authors: [ b0b0b0 ]

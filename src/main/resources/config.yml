@@ -15,3 +15,12 @@ drops:
   PIG: PORKCHOP          # Свинья — выбрасывает свинину.
   COW: BEEF              # Корова — выбрасывает говядину.
   RABBIT: RABBIT         # Кролик — выбрасывает крольчатину.
+
+drop_chances:
+  fire_drops: 20                    # Шанс (в процентах) выпадения огненного дропа.
+
+fire_drops:
+  CHICKEN: COOKED_CHICKEN           # Огненный дроп.
+  PIG: COOKED_PORKCHOP
+  COW: COOKED_BEEF
+  RABBIT: COOKED_RABBIT

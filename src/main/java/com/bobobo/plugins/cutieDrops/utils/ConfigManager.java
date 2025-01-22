@@ -1,82 +1,114 @@
 package com.bobobo.plugins.cutieDrops.utils;
-import com.bobobo.plugins.cutieDrops.CutieDrops;
+
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
+
 import java.util.HashMap;
 import java.util.Map;
-import org.bukkit.Sound;
-import org.bukkit.Particle;
+import java.util.Objects;
+
 public class ConfigManager {
-    private final CutieDrops plugin;
-    private final Map<EntityType, Material> dropMap = new HashMap<>();
-    private boolean checkUpdates;
-    private boolean enableAlreadyBabyMessage;
-    private boolean enableTransformedMessage;
-    private Sound alreadyBabySound;
-    private Sound transformedSound;
-    private Particle transformedParticle;
-    public ConfigManager(CutieDrops plugin) {
-        this.plugin = plugin;
-        reloadConfig();
+
+    private static final Map<EntityType, Material> dropMap = new HashMap<>();
+    private static final Map<EntityType, Material> fireDropMap = new HashMap<>();
+    private static boolean checkUpdates;
+    private static boolean enableAlreadyBabyMessage;
+    private static boolean enableTransformedMessage;
+    private static Sound alreadyBabySound;
+    private static Sound transformedSound;
+    private static Particle transformedParticle;
+    private static int fireDropChance;
+
+    private ConfigManager() {
+
     }
-    private void loadConfig() {
-        for (String key : plugin.getConfig().getConfigurationSection("drops").getKeys(false)) {
+    public static void load(FileConfiguration config) {
+        dropMap.clear();
+        fireDropMap.clear();
+
+        for (String key : Objects.requireNonNull(config.getConfigurationSection("drops")).getKeys(false)) {
             try {
                 EntityType entityType = EntityType.valueOf(key.toUpperCase());
-                Material dropMaterial = Material.valueOf(plugin.getConfig().getString("drops." + key).toUpperCase());
+                Material dropMaterial = Material.valueOf(Objects.requireNonNull(config.getString("drops." + key)).toUpperCase());
                 dropMap.put(entityType, dropMaterial);
             } catch (IllegalArgumentException e) {
-                plugin.getLogger().warning("Ошибка в конфиге для " + key);
+                System.out.println("Ошибка в конфиге для " + key);
             }
         }
+
+        for (String key : Objects.requireNonNull(config.getConfigurationSection("fire_drops")).getKeys(false)) {
+            try {
+                EntityType entityType = EntityType.valueOf(key.toUpperCase());
+                Material dropMaterial = Material.valueOf(Objects.requireNonNull(config.getString("fire_drops." + key)).toUpperCase());
+                fireDropMap.put(entityType, dropMaterial);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Ошибка в огненных дропах для " + key);
+            }
+        }
+
         try {
-            alreadyBabySound = Sound.valueOf(plugin.getConfig().getString("sounds.already_baby").toUpperCase());
+            alreadyBabySound = Sound.valueOf(Objects.requireNonNull(config.getString("sounds.already_baby")).toUpperCase());
         } catch (IllegalArgumentException e) {
-            plugin.getLogger().warning("Неверный звук для 'already_baby' в конфиге, используется по умолчанию");
+            System.out.println("Неверный звук для 'already_baby', используется по умолчанию");
             alreadyBabySound = Sound.ENTITY_VILLAGER_NO;
         }
+
         try {
-            transformedSound = Sound.valueOf(plugin.getConfig().getString("sounds.transformed").toUpperCase());
+            transformedSound = Sound.valueOf(Objects.requireNonNull(config.getString("sounds.transformed")).toUpperCase());
         } catch (IllegalArgumentException e) {
-            plugin.getLogger().warning("Неверный звук для 'transformed' в конфиге, используется по умолчанию");
+            System.out.println("Неверный звук для 'transformed', используется по умолчанию");
             transformedSound = Sound.ENTITY_PLAYER_LEVELUP;
         }
+
         try {
-            transformedParticle = Particle.valueOf(plugin.getConfig().getString("particles.transformed").toUpperCase());
+            transformedParticle = Particle.valueOf(Objects.requireNonNull(config.getString("particles.transformed")).toUpperCase());
         } catch (IllegalArgumentException e) {
-            plugin.getLogger().warning("Неверный партикл для 'transformed' в конфиге, используется по умолчанию");
+            System.out.println("Неверный партикл для 'transformed', используется по умолчанию");
             transformedParticle = Particle.CRIT;
         }
-        enableAlreadyBabyMessage = plugin.getConfig().getBoolean("settings.enable_already_baby_message", true);
-        enableTransformedMessage = plugin.getConfig().getBoolean("settings.enable_transformed_message", true);
-        checkUpdates = plugin.getConfig().getBoolean("settings.check_updates", true);
+
+        fireDropChance = config.getInt("drop_chances.fire_drops", 20);
+        enableAlreadyBabyMessage = config.getBoolean("settings.enable_already_baby_message", true);
+        enableTransformedMessage = config.getBoolean("settings.enable_transformed_message", true);
+        checkUpdates = config.getBoolean("settings.check_updates", true);
     }
-    public Material getDropMaterial(EntityType entityType) {
+
+    public static Material getDropMaterial(EntityType entityType) {
         return dropMap.get(entityType);
     }
-    public boolean isEnableAlreadyBabyMessage() {
+
+    public static Material getFireDropMaterial(EntityType entityType) {
+        return fireDropMap.get(entityType);
+    }
+
+    public static int getFireDropChance() {
+        return fireDropChance;
+    }
+
+    public static boolean isEnableAlreadyBabyMessage() {
         return enableAlreadyBabyMessage;
     }
 
-    public boolean isEnableTransformedMessage() {
+    public static boolean isEnableTransformedMessage() {
         return enableTransformedMessage;
     }
-    public Sound getAlreadyBabySound() {
+
+    public static boolean isCheckUpdates() {
+        return checkUpdates;
+    }
+
+    public static Sound getAlreadyBabySound() {
         return alreadyBabySound;
     }
 
-    public Sound getTransformedSound() {
+    public static Sound getTransformedSound() {
         return transformedSound;
     }
-    public boolean isCheckUpdates() {
-        return checkUpdates;
-    }
-    public Particle getTransformedParticle() {
+
+    public static Particle getTransformedParticle() {
         return transformedParticle;
-    }
-    public void reloadConfig() {
-        dropMap.clear();
-        plugin.reloadConfig();
-        loadConfig();
     }
 }

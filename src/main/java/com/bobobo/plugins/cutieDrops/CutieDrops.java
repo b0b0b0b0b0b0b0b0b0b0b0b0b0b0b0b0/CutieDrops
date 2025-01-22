@@ -2,6 +2,7 @@ package com.bobobo.plugins.cutieDrops;
 import com.bobobo.plugins.cutieDrops.utils.Reload;
 import com.bobobo.plugins.cutieDrops.utils.TC;
 import com.bobobo.plugins.cutieDrops.utils.UP;
+import com.bobobo.plugins.cutieDrops.utils.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
@@ -9,11 +10,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.bobobo.plugins.cutieDrops.events.InteractListener;
-import com.bobobo.plugins.cutieDrops.utils.ConfigManager;
 import java.io.File;
+import java.util.Objects;
 public final class CutieDrops extends JavaPlugin {
     private static CutieDrops instance;
-    private ConfigManager configManager;
     private FileConfiguration messagesConfig;
     private File messagesFile;
     String version = getDescription().getVersion();
@@ -24,11 +24,10 @@ public final class CutieDrops extends JavaPlugin {
         final ConsoleCommandSender console = getServer().getConsoleSender();
         saveDefaultConfig();
         createMessagesFile();
-        configManager = new ConfigManager(this);
-
+        ConfigManager.load(getConfig());
         Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
-        getCommand("cutiedrops").setExecutor(new Reload(this));
-        getCommand("cutiedrops").setTabCompleter(new TC());
+        Objects.requireNonNull(getCommand("cutiedrops")).setExecutor(new Reload(this));
+        Objects.requireNonNull(getCommand("cutiedrops")).setTabCompleter(new TC());
         console.sendMessage(" ");
         console.sendMessage(PREFIX + "==============================");
         console.sendMessage(PREFIX + "The CutieDrops plugin is embarking on its journey on your server!");
@@ -38,7 +37,7 @@ public final class CutieDrops extends JavaPlugin {
         console.sendMessage(PREFIX + "  /cutiedrops reload - Reloads the plugin configuration and messages.");
         console.sendMessage(PREFIX + "==============================");
         console.sendMessage(" ");
-        if (configManager.isCheckUpdates()) {
+        if (ConfigManager.isCheckUpdates()) {
             Bukkit.getScheduler().runTaskLater(this, () -> UP.checkVersion(version), 60L);
         }
     }
@@ -48,9 +47,6 @@ public final class CutieDrops extends JavaPlugin {
     public String getMessage(String key) {
         String message = messagesConfig.getString(key, "Сообщение не найдено: " + key);
         return ChatColor.translateAlternateColorCodes('&', message);
-    }
-    public ConfigManager getConfigManager() {
-        return configManager;
     }
     private void createMessagesFile() {
         messagesFile = new File(getDataFolder(), "messages.yml");

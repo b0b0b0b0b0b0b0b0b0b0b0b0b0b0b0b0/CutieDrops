@@ -29,6 +29,7 @@ public class UP {
                 logWarning("Please update the plugin. Choose one of the following links to download:");
 
                 console.sendMessage(PREFIX + "\u001B[36m1. Black-Minecraft: \u001B[0mhttps://black-minecraft.com/resources/7808/");
+                console.sendMessage(PREFIX + "\u001B[36m2. SpigotMC: \u001B[0mhttps://www.spigotmc.org/resources/122078/");
                 console.sendMessage(PREFIX + " ");
             } else {
                 logInfo("You are using the latest version of the plugin! Version: \u001B[32m" + currentVersion + "\u001B[0m.");

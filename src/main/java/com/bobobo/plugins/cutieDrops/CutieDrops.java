@@ -1,8 +1,8 @@
 package com.bobobo.plugins.cutieDrops;
 import com.bobobo.plugins.cutieDrops.utils.Reload;
-import com.bobobo.plugins.cutieDrops.utils.TC;
-import com.bobobo.plugins.cutieDrops.utils.UP;
-import com.bobobo.plugins.cutieDrops.utils.ConfigManager;
+import com.bobobo.plugins.cutieDrops.cmd.TC;
+import com.bobobo.plugins.cutieDrops.utils.upd.UP;
+import com.bobobo.plugins.cutieDrops.cfg.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
@@ -38,7 +38,7 @@ public final class CutieDrops extends JavaPlugin {
         console.sendMessage(PREFIX + "==============================");
         console.sendMessage(" ");
         if (ConfigManager.isCheckUpdates()) {
-            Bukkit.getScheduler().runTaskLater(this, () -> UP.checkVersion(version), 60L);
+            Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> UP.checkVersion(version), 60L);
         }
     }
     public static CutieDrops getInstance() {

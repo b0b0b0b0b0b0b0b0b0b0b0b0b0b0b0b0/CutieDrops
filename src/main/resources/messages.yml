@@ -1,4 +1,11 @@
-mob_already_baby: "&cЭтот моб уже малыш!"
-mob_transformed: "&aВы превратили моба в малыша и получили лут!"
-no_permission: "&cУ вас нет прав для выполнения этой команды."
-reload_success: "&aКонфиг и сообщения успешно перезагружены!"
+# Message shown when trying to transform a mob that is already a baby
+mob_already_baby: "&cThis mob is already a baby!"
+
+# Message shown when successfully transforming a mob into a baby
+mob_transformed: "&aYou transformed the mob into a baby and received loot!"
+
+# Message shown when player doesn't have permission for a command
+no_permission: "&cYou don't have permission to execute this command."
+
+# Message shown when config and messages are successfully reloaded
+reload_success: "&aConfig and messages successfully reloaded!"

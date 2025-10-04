@@ -1,6 +1,6 @@
 package com.bobobo.plugins.cutieDrops.events;
 import com.bobobo.plugins.cutieDrops.CutieDrops;
-import com.bobobo.plugins.cutieDrops.utils.ConfigManager;
+import com.bobobo.plugins.cutieDrops.cfg.ConfigManager;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -43,20 +43,10 @@ public class InteractListener implements Listener {
         event.setCancelled(true);
     }
 
-    /**
-     * Обрабатывает взаимодействие с мобом.
-     *
-     * @param player Игрок, если взаимодействие инициировано им (null для раздатчика)
-     * @param mob    Моб, с которым происходит взаимодействие
-     */
     private void handleInteraction(Player player, Ageable mob) {
-
         String messageKey;
-
         Material dropMaterial = determineDrop(mob.getType());
-
         if (dropMaterial == null) return;
-
         if (!mob.isAdult()) {
             if (player != null && ConfigManager.isEnableAlreadyBabyMessage()) {
                 messageKey = "mob_already_baby";
@@ -79,12 +69,7 @@ public class InteractListener implements Listener {
             player.playSound(player.getLocation(), ConfigManager.getTransformedSound(), 1.0f, 1.0f);
         }
     }
-    /**
-     * Определяет, какой дроп выпадет (обычный или огненный) с учётом шанса.
-     *
-     * @param mobType Тип моба
-     * @return Материал дропа
-     */
+
     private Material determineDrop(EntityType mobType) {
         Material dropMaterial = ConfigManager.getDropMaterial(mobType);
         Material fireDropMaterial = ConfigManager.getFireDropMaterial(mobType);

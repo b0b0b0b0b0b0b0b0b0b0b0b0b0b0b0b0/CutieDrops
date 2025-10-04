@@ -3,7 +3,7 @@ version: '${project.version}'
 main: com.bobobo.plugins.cutieDrops.CutieDrops
 api-version: '1.18'
 authors: [ b0b0b0 ]
-website: https://black-minecraft.com/
+website: https://black-minecraft.com/resources/7808/
 commands:
   cutiedrops:
     description: Перезагрузка конфига CutieDrops.

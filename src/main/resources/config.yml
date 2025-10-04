@@ -1,26 +1,65 @@
+# =============================================================================
+# CutieDrops Plugin Configuration
+# =============================================================================
+# This file contains all configuration settings for the CutieDrops plugin.
+# Modify the values below to customize the plugin behavior.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# General Settings
+# -----------------------------------------------------------------------------
 settings:
-  enable_already_baby_message: true  # Включает сообщение "Моб уже малыш".
-  enable_transformed_message: true   # Включает сообщение "Моб превращён в малыша".
-  check_updates: true                # Проверять обновления плагина.
+  # Enable message when trying to transform a mob that is already a baby
+  enable_already_baby_message: true
 
+  # Enable message when successfully transforming a mob into a baby
+  enable_transformed_message: true
+
+  # Check for plugin updates on startup
+  check_updates: true
+
+# -----------------------------------------------------------------------------
+# Sound Effects
+# -----------------------------------------------------------------------------
 sounds:
-  already_baby: ENTITY_VILLAGER_NO   # Звук при попытке превратить малыша.
-  transformed: ENTITY_PLAYER_LEVELUP # Звук при успешном превращении моба в малыша.
+  # Sound played when trying to transform an already baby mob
+  already_baby: ENTITY_VILLAGER_NO
 
+  # Sound played when successfully transforming a mob into a baby
+  transformed: ENTITY_PLAYER_LEVELUP
+
+# -----------------------------------------------------------------------------
+# Visual Effects
+# -----------------------------------------------------------------------------
 particles:
-  transformed: CRIT                 # Партиклы при успешном превращении моба.
+  # Particle effect displayed when successfully transforming a mob
+  transformed: CRIT
 
+# -----------------------------------------------------------------------------
+# Drop Configuration
+# -----------------------------------------------------------------------------
 drops:
-  CHICKEN: FEATHER       # Курица — выбрасывает перо.
-  PIG: PORKCHOP          # Свинья — выбрасывает свинину.
-  COW: BEEF              # Корова — выбрасывает говядину.
-  RABBIT: RABBIT         # Кролик — выбрасывает крольчатину.
+  # Normal drops when transforming mobs into babies
+  # Format: ENTITY_TYPE: DROP_MATERIAL
+  CHICKEN: FEATHER
+  PIG: PORKCHOP
+  COW: BEEF
+  RABBIT: RABBIT
 
+# -----------------------------------------------------------------------------
+# Drop Chances
+# -----------------------------------------------------------------------------
 drop_chances:
-  fire_drops: 20                    # Шанс (в процентах) выпадения огненного дропа.
+  # Chance (in percentage) for fire drops to occur
+  fire_drops: 20
 
+# -----------------------------------------------------------------------------
+# Fire Drops
+# -----------------------------------------------------------------------------
 fire_drops:
-  CHICKEN: COOKED_CHICKEN           # Огненный дроп.
+  # Cooked drops that can be obtained when fire drops occur
+  # Format: ENTITY_TYPE: COOKED_MATERIAL
+  CHICKEN: COOKED_CHICKEN
   PIG: COOKED_PORKCHOP
   COW: COOKED_BEEF
   RABBIT: COOKED_RABBIT

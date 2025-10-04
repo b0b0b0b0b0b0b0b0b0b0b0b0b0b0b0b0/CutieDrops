@@ -1,12 +1,12 @@
 package com.bobobo.plugins.cutieDrops.utils;
 import com.bobobo.plugins.cutieDrops.CutieDrops;
+import com.bobobo.plugins.cutieDrops.cfg.ConfigManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 public class Reload implements CommandExecutor {
     private final CutieDrops plugin;
-
     public Reload(CutieDrops plugin) {
         this.plugin = plugin;
     }
